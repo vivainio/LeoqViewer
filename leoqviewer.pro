@@ -37,4 +37,5 @@ QT += sql
 HEADERS += \
     leoqdb.h \
     leomodel.h \
-    leonode.h
+    leonode.h \
+    roleitemmodel.h
