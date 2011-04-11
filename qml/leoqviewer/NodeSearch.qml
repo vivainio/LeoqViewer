@@ -16,6 +16,11 @@ Page {
         }
     }
 
+    Component.onCompleted: {
+        console.log(leoEngine.searchModel)
+        ;
+    }
+
     TextField {
         id: tSearchText
 

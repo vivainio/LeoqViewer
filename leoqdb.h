@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QSqlDatabase>
 
+class RoleItemModel;
+
 class LeoqDb : public QObject
 {
     Q_OBJECT
@@ -14,7 +16,7 @@ public:
 signals:
 
 public slots:
-    void searchHeaders(const QString& pat);
+    void searchHeaders(const QString& pat, RoleItemModel& mdl);
 
 private:
     QSqlDatabase m_db;

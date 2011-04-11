@@ -23,7 +23,10 @@ symbian:TARGET.CAPABILITY += NetworkServices
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
-    leoqdb.cpp
+    leoqdb.cpp \
+    leomodel.cpp \
+    leonode.cpp \
+    roleitemmodel.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -32,4 +35,6 @@ qtcAddDeployment()
 QT += sql
 
 HEADERS += \
-    leoqdb.h
+    leoqdb.h \
+    leomodel.h \
+    leonode.h

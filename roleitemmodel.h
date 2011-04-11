@@ -12,6 +12,8 @@
 
 class RoleItemModel : public QStandardItemModel
 {
+    Q_OBJECT
+
 public:
     /* Ctor. roleNames is a map describing when role id (e.g. Qt::UserRole+1)
       is associated with what name on QML side (e.g. 'bookTitle')
