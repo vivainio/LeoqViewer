@@ -31,7 +31,6 @@ Page {
         id: pagesModel
         ListElement {
             title: "Test 1"
-            buttonText: "Click"
             subtitle: "This is subtitle 1"
         }
         ListElement {
@@ -61,13 +60,6 @@ Page {
 
                 anchors.rightMargin: 16
                 anchors.verticalCenter: parent.verticalCenter
-            }
-            ListButton {
-                text: buttonText
-                style: ListButtonStyle {}
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                anchors.rightMargin: 100
             }
 
             subtitleColor: "#cc6633"
