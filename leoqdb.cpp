@@ -2,7 +2,9 @@
 #include <QSqlQuery>
 #include <QVariant>
 #include "roleitemmodel.h"
-
+#include <QDebug>
+#include <QSqlError>
+#include "leonode.h"
 /*
 
 treefrag_schema = """
@@ -39,32 +41,20 @@ CREATE INDEX b_idx ON edges (b);
 
 */
 
-class LeoNode {
-
-public:
-
-    QString h;
-    int bodyid;
-
-    QString body;
-
-    enum NodeRoles {
-        RoleH = Qt::UserRole + 1,
-        RoleBody,
-        RoleGnx
-
-    };
-
-    static RoleItemModel* createModel() {
-        QHash<int, QByteArray> roleNames;
-        roleNames[RoleH] =  "h";
-        roleNames[RoleBody] = "body";
-        roleNames[RoleGnx] = "gnx";
-        return new RoleItemModel(roleNames);
-
+namespace
+{
+    void doexec(QSqlQuery& q) {
+        bool r = q.exec();
+        if (!r)
+            qDebug() << "Db error :" << q.lastError();
+        else
+            qDebug() << "ok exec";
     }
+}
 
-};
+
+
+
 
 LeoqDb::LeoqDb(QObject *parent) :
     QObject(parent)
@@ -81,18 +71,21 @@ void LeoqDb::openDb(const QString &fname)
 
 }
 
-void LeoqDb::searchHeaders(const QString &pat, RoleItemModel& mdl)
+void LeoqDb::searchHeaders(const QString &pat, RoleItemModel* mdl)
 {
-    QSqlQuery q("select id, h from NODES where h like ?");
-    q.bindValue(0,QVariant(pat));
-    q.exec();
+
+    QSqlQuery q("select id, h from NODES"); // where h like ?");
+    //q.bindValue(0,QVariant(pat));
+    doexec(q);
 
     while (q.next()) {
+
         int id = q.value(0).toInt();
         QString h = q.value(1).toString();
+        qDebug() << "id " << id << " h " << h;
         QStandardItem* it = new QStandardItem();
         it->setData(h, LeoNode::RoleH);
-        mdl.appendRow(it);
+        mdl->appendRow(it);
     }
 
 

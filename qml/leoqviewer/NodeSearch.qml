@@ -14,6 +14,16 @@ Page {
             right: parent.right
 
         }
+        onClicked: {
+            leoEngine.startSearch(tSearchText.text)
+            var mdl = leoEngine.searchModel
+            for (var i=0; i < mdl.count; i++) {
+                var el = mdl.at(i)
+                console.log(el)
+
+
+            }
+        }
     }
 
     Component.onCompleted: {

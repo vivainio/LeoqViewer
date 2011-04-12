@@ -16,7 +16,7 @@ public:
 signals:
 
 public slots:
-    void searchHeaders(const QString& pat, RoleItemModel& mdl);
+    void searchHeaders(const QString& pat, RoleItemModel* mdl);
 
 private:
     QSqlDatabase m_db;

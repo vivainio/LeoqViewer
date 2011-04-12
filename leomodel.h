@@ -3,22 +3,29 @@
 
 #include <QObject>
 #include "roleitemmodel.h"
-
-class LeoModel : public QObject
+#include "leoqdb.h"
+class LeoEngine : public QObject
 {
     Q_OBJECT
     RoleItemModel* m_searchModel;
 
 public:
-    explicit LeoModel(QObject *parent = 0);
+    explicit LeoEngine(QObject *parent = 0);
 
     Q_PROPERTY (QObject* searchModel READ searchModel)
+
 
     QObject* searchModel() const;
 
 signals:
+    void searchReady();
 
 public slots:
+
+    void startSearch(const QString& pat);
+private:
+
+    LeoqDb* m_db;
 
 };
 

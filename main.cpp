@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     QmlApplicationViewer viewer;
-    LeoModel* mdl = new LeoModel;
+    LeoEngine* mdl = new LeoEngine;
     viewer.rootContext()->setContextProperty("leoEngine", mdl);
 
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
