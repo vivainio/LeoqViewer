@@ -22,7 +22,7 @@ signals:
 
 public slots:
 
-    void startSearch(const QString& pat);
+    QVariantList startSearch(const QString& pat);
 private:
 
     LeoqDb* m_db;

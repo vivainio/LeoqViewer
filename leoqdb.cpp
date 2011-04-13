@@ -52,10 +52,6 @@ namespace
     }
 }
 
-
-
-
-
 LeoqDb::LeoqDb(QObject *parent) :
     QObject(parent)
 {
@@ -71,23 +67,21 @@ void LeoqDb::openDb(const QString &fname)
 
 }
 
-void LeoqDb::searchHeaders(const QString &pat, RoleItemModel* mdl)
+QVariantList LeoqDb::searchHeaders(const QString &pat)
 {
 
     QSqlQuery q("select id, h from NODES"); // where h like ?");
     //q.bindValue(0,QVariant(pat));
     doexec(q);
-
+    QVariantList res;
     while (q.next()) {
+        QVariantMap ent;
+        ent["id"] = q.value(0);
+        ent["h"] = q.value(1);
+        qDebug() << ent;
 
-        int id = q.value(0).toInt();
-        QString h = q.value(1).toString();
-        qDebug() << "id " << id << " h " << h;
-        QStandardItem* it = new QStandardItem();
-        it->setData(h, LeoNode::RoleH);
-        mdl->appendRow(it);
+        res.append(ent);
     }
-
-
+    return res;
 }
 

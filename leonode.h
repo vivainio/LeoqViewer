@@ -9,13 +9,11 @@ class RoleItemModel;
 class LeoNode : public QObject {
     Q_OBJECT
 
+public:
     LeoNode();
     QString m_headstring;
 
-public:
-
     Q_PROPERTY(QString headstring READ getHeadstring WRITE getHeadstring)
-    QString h;
     int bodyid;
 
     QString body;

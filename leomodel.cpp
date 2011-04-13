@@ -15,8 +15,10 @@ QObject * LeoEngine::searchModel() const
     return m_searchModel;
 }
 
-void LeoEngine::startSearch(const QString &pat)
+QVariantList LeoEngine::startSearch(const QString &pat)
 {
-    m_db->searchHeaders(pat, m_searchModel);
+    QVariantList vl = m_db->searchHeaders(pat);
+    return vl;
+
 
 }

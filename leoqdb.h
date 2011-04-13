@@ -3,6 +3,9 @@
 
 #include <QObject>
 #include <QSqlDatabase>
+#include <QList>
+#include "leonode.h"
+#include <QVariantList>
 
 class RoleItemModel;
 
@@ -16,7 +19,7 @@ public:
 signals:
 
 public slots:
-    void searchHeaders(const QString& pat, RoleItemModel* mdl);
+    QVariantList searchHeaders(const QString &pat);
 
 private:
     QSqlDatabase m_db;

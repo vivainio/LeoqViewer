@@ -15,14 +15,17 @@ Page {
 
         }
         onClicked: {
-            leoEngine.startSearch(tSearchText.text)
-            var mdl = leoEngine.searchModel
-            for (var i=0; i < mdl.count; i++) {
-                var el = mdl.at(i)
-                console.log(el)
-
-
+            var res = leoEngine.startSearch(tSearchText.text)
+            console.log(res)
+            searchResultModel.clear()
+            for (var i in res) {
+                var v= res[i]
+                console.log(v)
+                var ent = { title: v['h'], subtitle: v['h'] }
+                searchResultModel.append(ent)
             }
+
+            console.log(res)
         }
     }
 
@@ -43,20 +46,15 @@ Page {
     }
 
     ListModel {
-        id: pagesModel
+        id: searchResultModel
         ListElement {
             title: "Test 1"
-            subtitle: "This is subtitle 1"
         }
         ListElement {
             title: "Test 2"
-            buttonText: "Click Me"
-            subtitle: "This is subtitle 2"
         }
         ListElement {
             title: "Test 3"
-            buttonText: "Click Me More"
-            subtitle: "This is subtitle 3"
         }
     }
 
@@ -66,9 +64,13 @@ Page {
         }
 
 
-        model: pagesModel
+        model: searchResultModel
 
         delegate: ListDelegate {
+            titleSize: 22
+            property int titleWeight: Font.Normal
+            //property color titleColor: theme.inverted ? UI.LIST_TITLE_COLOR_INVERTED : UI.LIST_TITLE_COLOR
+
             Image {
                 source: "image://theme/icon-m-common-drilldown-arrow" + (theme.inverted ? "-inverse" : "")
                 anchors.right: parent.right;
