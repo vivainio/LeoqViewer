@@ -17,6 +17,7 @@ Page {
 
     tools: commonTools
 
+
     ListModel {
         id: nodeList
         ListElement {
@@ -84,6 +85,17 @@ Page {
 
                 pushPage(node_id)
             }
+        }
+
+        header: Rectangle {
+            height: 50
+            Label {
+
+                text: priv.current_h
+                color: "blue"
+
+            }
+
         }
 
         footer: Rectangle {
