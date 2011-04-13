@@ -16,9 +16,9 @@ int main(int argc, char *argv[])
     viewer.setMainQmlFile(QLatin1String("qml/leoqviewer/main.qml"));
     viewer.showExpanded();
 
-    LeoqDb* db = new LeoqDb();
-    db->openDb("/home/ville/treefrag.db");
-    db->childNodes(4);
+    //LeoqDb* db = new LeoqDb();
+    //db->openDb("/home/ville/treefrag.db");
+    //db->childNodes(0);
 
     return app.exec();
 }

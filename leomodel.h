@@ -23,6 +23,9 @@ signals:
 public slots:
 
     QVariantList startSearch(const QString& pat);
+    QVariantList childNodes(int parent);
+    void openDb(const QString& fname);
+
 private:
 
     LeoqDb* m_db;

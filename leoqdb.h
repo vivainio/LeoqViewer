@@ -14,15 +14,11 @@ class LeoqDb : public QObject
     Q_OBJECT
 public:
     explicit LeoqDb(QObject *parent = 0);
-    void openDb(const QString& fname);
-
-
-
-
 
 signals:
 
 public slots:
+    void openDb(const QString& fname);
     QVariantList searchHeaders(const QString &pat);
     QVariantList childNodes(int parentid);
 

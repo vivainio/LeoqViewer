@@ -8,6 +8,15 @@ PageStackWindow {
         id: nodeSearch
     }
 
-   initialPage: nodeSearch
+    NodeView {
+        id: nodeView
+    }
+
+    Component.onCompleted: {
+        leoEngine.openDb("/home/ville/treefrag.db")
+        nodeView.setParent(0)
+    }
+
+   initialPage: nodeView
 
 }
