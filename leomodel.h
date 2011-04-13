@@ -15,15 +15,11 @@ public:
     Q_PROPERTY (QObject* db READ getDb)
 
 
-    QObject* searchModel() const;
-
     QObject* getDb() const
     {
         return m_db;
     }
 
-signals:
-    void searchReady();
 
 public slots:
 

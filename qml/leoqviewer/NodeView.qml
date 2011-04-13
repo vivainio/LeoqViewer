@@ -47,7 +47,7 @@ Page {
         priv.current_h = node.h
         console.log("Body is ", body)
         var b = ""
-        var nl = body.indexOf('\n', 100)
+        var nl = body.indexOf('\n', 500)
 
         if (nl > 0) {
 
