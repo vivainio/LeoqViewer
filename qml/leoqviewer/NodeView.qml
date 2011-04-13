@@ -5,22 +5,26 @@ import com.nokia.extras 1.0
 
 Page {
     id: root
+    property int parentnodeid
+
     ListModel {
         id: nodeList
         ListElement {
+            node_id: 0
             title: "Test 1"
             subtitle: "sub"
         }
     }
 
     function setParent(parentid) {
+        parentnodeid = parentid
         var children = leoEngine.childNodes(parentid)
 
         nodeList.clear()
         for (var i in children) {
             var v = children[i]
             nodeList.append({
-
+                            node_id: v.id,
                             title : v.h,
                             subtitle: "sub"
             })
@@ -52,7 +56,10 @@ Page {
             }
 
             subtitleColor: "#cc6633"
-            //onClicked: { openFile(model.page); }
+            onClicked: {
+
+                pushPage(node_id)
+            }
         }
     }
 
