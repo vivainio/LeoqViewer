@@ -18,8 +18,7 @@ int main(int argc, char *argv[])
 
     LeoqDb* db = new LeoqDb();
     db->openDb("/home/ville/treefrag.db");
-
-
+    db->childNodes(4);
 
     return app.exec();
 }

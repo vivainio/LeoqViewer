@@ -16,10 +16,15 @@ public:
     explicit LeoqDb(QObject *parent = 0);
     void openDb(const QString& fname);
 
+
+
+
+
 signals:
 
 public slots:
     QVariantList searchHeaders(const QString &pat);
+    QVariantList childNodes(int parentid);
 
 private:
     QSqlDatabase m_db;

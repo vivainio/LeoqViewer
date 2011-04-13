@@ -67,6 +67,8 @@ void LeoqDb::openDb(const QString &fname)
 
 }
 
+
+
 QVariantList LeoqDb::searchHeaders(const QString &pat)
 {
 
@@ -85,3 +87,21 @@ QVariantList LeoqDb::searchHeaders(const QString &pat)
     return res;
 }
 
+QVariantList LeoqDb::childNodes(int parentid)
+{
+    QSqlQuery q("select EDGES.b, EDGES.pos, NODES.id, NODES.h from EDGES, NODES where EDGES.a = ? and NODES.id = EDGES.b order by EDGES.pos");
+    q.bindValue(0, QVariant(parentid));
+
+    doexec(q);
+    QVariantList res;
+    while (q.next()) {
+        QVariantMap ent;
+        ent["id"] = q.value(2);
+        ent["h"] = q.value(3);
+        qDebug() << ent;
+
+        res.append(ent);
+    }
+    return res;
+
+}

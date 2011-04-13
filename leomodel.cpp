@@ -19,6 +19,7 @@ QVariantList LeoEngine::startSearch(const QString &pat)
 {
     QVariantList vl = m_db->searchHeaders(pat);
     return vl;
-
-
 }
+
+
+
