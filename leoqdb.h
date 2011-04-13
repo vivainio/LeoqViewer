@@ -21,6 +21,7 @@ public slots:
     void openDb(const QString& fname);
     QVariantList searchHeaders(const QString &pat);
     QVariantList childNodes(int parentid);
+    QVariantMap fetchNodeFull(int nodeid);
 
 private:
     QSqlDatabase m_db;

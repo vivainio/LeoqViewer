@@ -12,10 +12,15 @@ class LeoEngine : public QObject
 public:
     explicit LeoEngine(QObject *parent = 0);
 
-    Q_PROPERTY (QObject* searchModel READ searchModel)
+    Q_PROPERTY (QObject* db READ getDb)
 
 
     QObject* searchModel() const;
+
+    QObject* getDb() const
+    {
+        return m_db;
+    }
 
 signals:
     void searchReady();

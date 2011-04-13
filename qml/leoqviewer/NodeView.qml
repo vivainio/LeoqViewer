@@ -5,7 +5,17 @@ import com.nokia.extras 1.0
 
 Page {
     id: root
-    property int parentnodeid
+    QtObject {
+        id: priv
+        property int parentnodeid
+        property string current_h
+        property string body
+        property string bodypreview
+        property bool bodypreview_full
+    }
+
+
+    tools: commonTools
 
     ListModel {
         id: nodeList
@@ -17,7 +27,7 @@ Page {
     }
 
     function setParent(parentid) {
-        parentnodeid = parentid
+        priv.parentnodeid = parentid
         var children = leoEngine.childNodes(parentid)
 
         nodeList.clear()
@@ -31,14 +41,28 @@ Page {
 
         }
 
-        //console.log(children)
+        var node = leoEngine.db.fetchNodeFull(priv.parentnodeid)
+        var body = node.b
+        priv.current_h = node.h
+        console.log("Body is ", body)
+        var b = ""
+        var nl = body.indexOf('\n', 100)
+
+        if (nl > 0) {
+
+            priv.bodypreview = body.substr(0, nl)
+            priv.bodypreview_full = false
+        } else {
+            priv.bodypreview = body
+            priv.bodypreview_full = true
+        }
+
     }
 
     ListView {
         anchors {
             top: parent.top; left: parent.left; right: parent.right; bottom: parent.bottom
         }
-
 
         model: nodeList
 
@@ -61,7 +85,35 @@ Page {
                 pushPage(node_id)
             }
         }
-    }
 
+        footer: Rectangle {
+            //height: 200
+            id: fitem
+            Text {
+                id: bodyf
+                text: priv.bodypreview
+            }
+
+            Row {
+                anchors.top:  bodyf.bottom
+                Button {
+
+                    width: 64
+
+                    id: bExpand
+                    text: "..."
+                    visible: !priv.bodypreview_full
+                }
+
+                Button {
+                    text: "edit"
+
+                }
+
+            }
+
+
+        }
+    }
 
 }

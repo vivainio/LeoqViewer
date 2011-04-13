@@ -103,5 +103,20 @@ QVariantList LeoqDb::childNodes(int parentid)
         res.append(ent);
     }
     return res;
+}
 
+QVariantMap LeoqDb::fetchNodeFull(int nodeid)
+{
+    QVariantMap res;
+    QSqlQuery q("select BLOBS.format, BLOBS.data, NODES.h from blobs, nodes where NODES.id = ? and BLOBS.id = NODES.bodyid");
+    q.bindValue(0, nodeid);
+    doexec(q);
+    q.next();
+    QString format = q.value(0).toString();
+    QVariant v = q.value(1);
+    qDebug() << "blob: " << v;
+    res["b"] = v.toString();
+    res["h"] = q.value(2).toString();
+
+    return res;
 }

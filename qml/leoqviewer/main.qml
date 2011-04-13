@@ -5,6 +5,14 @@ PageStackWindow {
     id: rootWindow
    // platformStyle: defaultStyle
     property Component nodeViewComponent
+
+    ToolBarLayout {
+        id: commonTools
+        visible: false
+        ToolIcon { iconId: theme.inverted ? "icon-m-toolbar-back-white" : "icon-m-toolbar-back"; onClicked: pageStack.pop(); }
+        ToolIcon { iconId: theme.inverted ? "icon-m-toolbar-view-menu-white" : "icon-m-toolbar-view-menu"; onClicked: (myMenu.status == DialogStatus.Closed) ? myMenu.open() : myMenu.close() }
+    }
+
     NodeSearch {
         id: nodeSearch
     }
