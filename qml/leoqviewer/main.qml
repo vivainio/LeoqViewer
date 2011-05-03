@@ -5,6 +5,7 @@ PageStackWindow {
     id: rootWindow
    // platformStyle: defaultStyle
     property Component nodeViewComponent
+    property Component nodeEditComponent
 
     ToolBarLayout {
         id: commonTools
@@ -29,10 +30,20 @@ PageStackWindow {
 
     }
 
+    function pushEditPage(nodeinfo) {
+        var p = pageStack.push(nodeEditComponent)
+        p.setNodeInfo(nodeinfo)
+        //p.
+
+    }
+
     Component.onCompleted: {
         nodeViewComponent = Qt.createComponent("NodeView.qml")
+        nodeEditComponent = Qt.createComponent("NodeEdit.qml")
         leoEngine.openDb("/home/ville/treefrag.db")
         pushPage(0)
+
+
         //nodeView.setParent(0)
     }
 

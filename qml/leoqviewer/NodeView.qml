@@ -5,6 +5,7 @@ import com.nokia.extras 1.0
 
 Page {
     id: root
+
     QtObject {
         id: priv
         property int parentnodeid
@@ -12,6 +13,7 @@ Page {
         property string body
         property string bodypreview
         property bool bodypreview_full        
+        property variant nodeInfo
     }
 
 
@@ -31,7 +33,12 @@ Page {
 
             }
             ToolButton { text: "+"  ; width: 80 }
-            ToolButton { text: "Edit" }
+            ToolButton {
+                text: "Edit"
+                onClicked: {
+                    pushEditPage(priv.nodeInfo)
+                }
+            }
         }
         ToolIcon { iconId: theme.inverted ? "icon-m-toolbar-view-menu-white" : "icon-m-toolbar-view-menu"; onClicked: myMenu.open(); }
     }
@@ -64,6 +71,7 @@ Page {
         }
 
         var node = leoEngine.db.fetchNodeFull(priv.parentnodeid)
+        priv.nodeInfo = node
         var body = node.b
         priv.current_h = node.h
         console.log("Body is ", body)
