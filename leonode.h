@@ -18,14 +18,15 @@ public:
 
     QString body;
 
+#if 0
     enum NodeRoles {
         RoleH = Qt::UserRole + 1,
         RoleBody,
         RoleGnx
 
     };
-
-    static RoleItemModel* createModel();
+#endif
+    //static RoleItemModel* createModel();
 
     QString getHeadstring() const
     {

@@ -11,11 +11,32 @@ Page {
         property string current_h
         property string body
         property string bodypreview
-        property bool bodypreview_full
+        property bool bodypreview_full        
     }
 
 
-    tools: commonTools
+    ToolBarLayout {
+        id: nodeViewTools
+        ToolIcon { iconId: theme.inverted ? "icon-m-toolbar-back-white" : "icon-m-toolbar-back"; onClicked: pageStack.pop(); }
+        ToolButtonRow {
+            ToolButton {
+                text: "..."  ;
+                width: 80
+                visible: !priv.bodypreview_full
+                onClicked: {
+                    priv.bodypreview = priv.body
+                    priv.bodypreview_full = true
+                }
+
+
+            }
+            ToolButton { text: "+"  ; width: 80 }
+            ToolButton { text: "Edit" }
+        }
+        ToolIcon { iconId: theme.inverted ? "icon-m-toolbar-view-menu-white" : "icon-m-toolbar-view-menu"; onClicked: myMenu.open(); }
+    }
+
+    tools: nodeViewTools
 
 
     ListModel {
@@ -48,6 +69,7 @@ Page {
         console.log("Body is ", body)
         var b = ""
         var nl = body.indexOf('\n', 500)
+        priv.body = body
 
         if (nl > 0) {
 
@@ -61,6 +83,7 @@ Page {
     }
 
     ListView {
+        snapMode: ListView.NoSnap
         anchors {
             top: parent.top; left: parent.left; right: parent.right; bottom: parent.bottom
         }
@@ -99,31 +122,16 @@ Page {
         }
 
         footer: Rectangle {
-            //height: 200
+            //height: 5000
             id: fitem
-            Text {
+            width: parent.width
+            height: bodyf.height
+
+            Label {
+                //anchors.fill: parent
                 id: bodyf
                 text: priv.bodypreview
             }
-
-            Row {
-                anchors.top:  bodyf.bottom
-                Button {
-
-                    width: 64
-
-                    id: bExpand
-                    text: "..."
-                    visible: !priv.bodypreview_full
-                }
-
-                Button {
-                    text: "edit"
-
-                }
-
-            }
-
 
         }
     }
