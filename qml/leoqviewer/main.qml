@@ -33,8 +33,7 @@ PageStackWindow {
     function pushEditPage(nodeinfo) {
         var p = pageStack.push(nodeEditComponent)
         p.setNodeInfo(nodeinfo)
-        //p.
-
+        return p
     }
 
     Component.onCompleted: {

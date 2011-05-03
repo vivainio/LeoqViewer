@@ -2,6 +2,8 @@ import QtQuick 1.0
 import com.meego 1.0
 import com.nokia.extras 1.0
 
+import "priv.js" as P
+
 
 Page {
     id: root
@@ -13,7 +15,6 @@ Page {
         property string body
         property string bodypreview
         property bool bodypreview_full        
-        property variant nodeInfo
     }
 
 
@@ -36,7 +37,10 @@ Page {
             ToolButton {
                 text: "Edit"
                 onClicked: {
-                    pushEditPage(priv.nodeInfo)
+                    var p = pushEditPage(P.priv(root).nodeInfo)
+                    p.saved.connect(function() { setFields(P.priv(root).nodeInfo) })
+
+
                 }
             }
         }
@@ -55,6 +59,25 @@ Page {
         }
     }
 
+    function setFields(node) {
+        var body = node.b
+        priv.current_h = node.h
+        console.log("Body is ", body)
+        var b = ""
+        var nl = body.indexOf('\n', 500)
+        priv.body = body
+
+        if (nl > 0) {
+
+            priv.bodypreview = body.substr(0, nl)
+            priv.bodypreview_full = false
+        } else {
+            priv.bodypreview = body
+            priv.bodypreview_full = true
+        }
+
+    }
+
     function setParent(parentid) {
         priv.parentnodeid = parentid
         var children = leoEngine.childNodes(parentid)
@@ -71,22 +94,8 @@ Page {
         }
 
         var node = leoEngine.db.fetchNodeFull(priv.parentnodeid)
-        priv.nodeInfo = node
-        var body = node.b
-        priv.current_h = node.h
-        console.log("Body is ", body)
-        var b = ""
-        var nl = body.indexOf('\n', 500)
-        priv.body = body
-
-        if (nl > 0) {
-
-            priv.bodypreview = body.substr(0, nl)
-            priv.bodypreview_full = false
-        } else {
-            priv.bodypreview = body
-            priv.bodypreview_full = true
-        }
+        P.priv(root).nodeInfo = node
+        setFields(node)
 
     }
 

@@ -7,7 +7,7 @@ import "priv.js" as P
 Page {
     id: root
 
-
+    signal saved
 
     ToolBarLayout {
         id: nodeEditTools
@@ -17,6 +17,7 @@ Page {
             iconId: theme.inverted ? "icon-m-toolbar-done-white" : "icon-m-toolbar-done"
             onClicked: {
                 save()
+
 
 
             }
@@ -44,13 +45,14 @@ Page {
         ni['b'] = tBody.text
         leoEngine.db.updateNode(ni)
         leoEngine.db.commit()
+        saved()
+
 
     }
 
 
     QtObject {
         id: priv
-        property variant nodeInfo
 
     }
 
