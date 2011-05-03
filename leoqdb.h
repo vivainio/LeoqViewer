@@ -22,6 +22,9 @@ public slots:
     QVariantList searchHeaders(const QString &pat);
     QVariantList childNodes(int parentid);
     QVariantMap fetchNodeFull(int nodeid);
+    void updateNode(const QVariantMap& nodeInfo);
+    void commit();
+
 
 private:
     QSqlDatabase m_db;

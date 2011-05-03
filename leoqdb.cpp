@@ -108,7 +108,7 @@ QVariantList LeoqDb::childNodes(int parentid)
 QVariantMap LeoqDb::fetchNodeFull(int nodeid)
 {
     QVariantMap res;
-    QSqlQuery q("select BLOBS.format, BLOBS.data, NODES.h from blobs, nodes where NODES.id = ? and BLOBS.id = NODES.bodyid");
+    QSqlQuery q("select BLOBS.format, BLOBS.data, NODES.h, NODES.id, BLOBS.id from blobs, nodes where NODES.id = ? and BLOBS.id = NODES.bodyid");
     q.bindValue(0, nodeid);
     doexec(q);
     q.next();
@@ -117,6 +117,31 @@ QVariantMap LeoqDb::fetchNodeFull(int nodeid)
     qDebug() << "blob: " << v;
     res["b"] = v.toString();
     res["h"] = q.value(2).toString();
+    res["id"] = q.value(3).toInt();
+    res["bodyid"] = q.value(4).toInt();
 
     return res;
 }
+
+void LeoqDb::updateNode(const QVariantMap &nodeInfo)
+{
+    qDebug() << "update " << nodeInfo;
+    QSqlQuery q("update BLOBS set data=:body where id=:bodyid");
+    q.bindValue(":body", nodeInfo["b"]);
+    q.bindValue(":bodyid", nodeInfo["bodyid"]);
+    doexec(q);
+    QSqlQuery q2("update NODES set h = :h where id=:nodeid");
+    q2.bindValue(":h", nodeInfo["h"]);
+    q2.bindValue(":nodeid", nodeInfo["id"]);
+    doexec(q2);
+
+
+}
+
+void LeoqDb::commit()
+{
+    m_db.commit();
+
+}
+
+

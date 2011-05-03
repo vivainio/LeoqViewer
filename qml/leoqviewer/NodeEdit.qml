@@ -2,15 +2,51 @@ import QtQuick 1.0
 import com.meego 1.0
 import com.nokia.extras 1.0
 
+import "priv.js" as P
 
 Page {
-    tools: commonTools
+    id: root
+
+
+
+    ToolBarLayout {
+        id: nodeEditTools
+        ToolIcon { iconId: theme.inverted ? "icon-m-toolbar-back-white" : "icon-m-toolbar-back"; onClicked: pageStack.pop(); }
+
+        ToolIcon {
+            iconId: theme.inverted ? "icon-m-toolbar-done-white" : "icon-m-toolbar-done"
+            onClicked: {
+                save()
+
+
+            }
+
+        }
+
+        ToolIcon { iconId: theme.inverted ? "icon-m-toolbar-view-menu-white" : "icon-m-toolbar-view-menu"; onClicked: myMenu.open(); }
+    }
+
+    tools: nodeEditTools
+
 
     function setNodeInfo(ni) {
-        priv.nodeInfo = ni
+        P.priv(root).nodeInfo = ni
         tBody.text = ni.b
         tHeader.text = ni.h
     }
+
+    function save() {
+        console.log("h is " + tHeader.text)
+
+        var ni = P.priv(root).nodeInfo
+
+        ni['h'] = tHeader.text
+        ni['b'] = tBody.text
+        leoEngine.db.updateNode(ni)
+        leoEngine.db.commit()
+
+    }
+
 
     QtObject {
         id: priv
